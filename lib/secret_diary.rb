@@ -5,15 +5,15 @@ class Secret_diary
     raise "The diary is locked!"
   end
   def unlock
-    @unlocked_diary
+    @unlocked_diary = Unlocked_diary
   end
 end
 
-class Diary_entries
+class Unlocked_diary
   def add_entry
-    @unlocked_diary
+
   end
   def get_entries
-    @unlocked_diiary
+    
   end
 end

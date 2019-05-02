@@ -17,15 +17,15 @@ describe "secret diary" do
 
 end
 
-describe "Entries" do
-  diary_entries = Diary_entries.new
+describe "Unlocked diary" do
+  unlocked_diary = Unlocked_diary.new
 
   it "You can add an entry" do
-    expect(diary_entries).to respond_to(:add_entry)
+    expect(unlocked_diary).to respond_to(:add_entry)
   end
 
   it "You can get all the entries" do
-    expect(diary_entries).to respond_to(:get_entries)
+    expect(unlocked_diary).to respond_to(:get_entries)
   end
 
 end
