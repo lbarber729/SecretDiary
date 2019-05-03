@@ -7,25 +7,27 @@ describe "secret diary" do
     expect(secret_diary).to respond_to(:lock)
   end
 
-  it "raises an error whilst locked" do
-    expect{secret_diary.lock}.to raise_error("The diary is locked!")
-  end
-
   it "unlocks" do
     expect(secret_diary).to respond_to(:unlock)
   end
 
-end
-
-describe "Unlocked diary" do
-  unlocked_diary = Unlocked_diary.new
-
-  it "You can add an entry" do
-    expect(unlocked_diary).to respond_to(:add_entry)
+  it "You can add an entry when unlocked" do
+    expect(secret_diary).to respond_to(:add_entry)
   end
 
-  it "You can get all the entries" do
-    expect(unlocked_diary).to respond_to(:get_entries)
+  it "You can get all the entries when unlocked" do
+    secret_diary.unlock
+    expect(secret_diary).to respond_to(:get_entries)
+  end
+
+  it "Raises an error when tryinig to add an entry to locked diary" do
+    secret_diary.lock
+    expect{secret_diary.add_entry}.to raise_error("The diary is locked, cannot add entry!")
+  end
+
+  it "Raises an error when trying to add an entry to locked diary" do
+    secret_diary.lock
+    expect{secret_diary.get_entries}.to raise_error("The diary is locked, cannot see entries!")
   end
 
 end
