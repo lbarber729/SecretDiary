@@ -1,33 +1,26 @@
-require './lib/secret_diary'
+require 'secret_diary'
+require 'padlock'
 
-describe "secret diary" do
-  secret_diary = Secret_diary.new
+describe Secret_diary do
 
-  it "locks" do
-    expect(secret_diary).to respond_to(:lock)
+  let(:subject) { described_class.new(Padlock.new) }
+
+  it "is locked" do
+    expect(subject.padlock.locked?).to eq true
   end
 
-  it "unlocks" do
-    expect(secret_diary).to respond_to(:unlock)
-  end
-
-  it "You can add an entry when unlocked" do
-    expect(secret_diary).to respond_to(:add_entry)
-  end
-
-  it "You can get all the entries when unlocked" do
-    secret_diary.unlock
-    expect(secret_diary).to respond_to(:get_entries)
+  it "can add an entry" do
+    subject.padlock.unlock
+    subject.add_entry("Hi")
+    expect(subject.get_entries).to eq ["Hi"] 
   end
 
   it "Raises an error when tryinig to add an entry to locked diary" do
-    secret_diary.lock
-    expect{secret_diary.add_entry}.to raise_error("The diary is locked, cannot add entry!")
+    expect{ subject.add_entry("Hi") }.to raise_error "The diary is locked, cannot add entry!"
   end
 
-  it "Raises an error when trying to add an entry to locked diary" do
-    secret_diary.lock
-    expect{secret_diary.get_entries}.to raise_error("The diary is locked, cannot see entries!")
+  it "Raises an error when trying to get entries to locked diary" do
+    expect{ subject.get_entries }.to raise_error "The diary is locked, cannot see entries!"
   end
 
 end
