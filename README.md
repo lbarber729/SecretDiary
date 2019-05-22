@@ -20,7 +20,7 @@ This project was to better my understanding of the OO Principle Encapsulation, t
 - Run from the terminal
 
 ```
-reqire './lib/secret_diary'
+require './lib/secret_diary'
 diary = Diary.new
 padlock = Padlock.new
 
